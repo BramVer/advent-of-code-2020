@@ -44,7 +44,7 @@ block firstAssFineMent:
 
 
     proc looperBoi(): int {.discardable.} =
-        for numb in numbers.items():
+        for numb in numbers.items:
 
             for idx, n in numbers[0..^1]:
 
