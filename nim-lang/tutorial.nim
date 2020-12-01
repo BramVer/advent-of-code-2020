@@ -102,3 +102,8 @@ for item in listjen.items:
 
 for idx, item in listjen.pairs:
     echo idx, item
+
+
+#[
+    --- https://nim-lang.org/docs/tut1.html#procedures-parameters
+]#
