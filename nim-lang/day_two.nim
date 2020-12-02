@@ -1,4 +1,5 @@
 import strutils
+import nimbench
 from sequtils import map
 
 
@@ -8,7 +9,12 @@ const policy_separator = " "
 const positions_separator = "-"
 
 
-block firstAssFinement:
+var flines: seq[string] = @[]
+for line in fname.lines:
+    flines.add(line)
+
+
+bench(firstAssignment):
     proc isBetween(between: string, value: int): bool =
         let parsed = between.split(positions_separator).map(parseInt)
         parsed[0] <= value and value <= parsed[1]
@@ -19,7 +25,7 @@ block firstAssFinement:
 
 
     proc extractValidPasswords(): int =
-        for line in fname.lines:
+        for line in flines:
             let splitted = line.split(separator)
             let policy = splitted[0].split(policy_separator)
 
@@ -27,11 +33,11 @@ block firstAssFinement:
                 result += 1
 
 
-    echo extractValidPasswords()
+    let _ = extractValidPasswords()
 
 
 
-block secondAssFinement:
+bench(secondAssignment):
     proc isCharAtPosInString(subchar: char, pos: int, value: string): bool =
         pos - 1 >= low(value) and pos - 1 <= high(value) and value[pos - 1] == subchar
 
@@ -42,7 +48,7 @@ block secondAssFinement:
 
 
     proc extractValidPasswords(): int =
-        for line in fname.lines:
+        for line in flines:
             let splitted = line.split(separator)
             let policy = splitted[0].split(policy_separator)
 
@@ -50,4 +56,7 @@ block secondAssFinement:
                 result += 1
 
 
-    echo extractValidPasswords()
+    let _ = extractValidPasswords()
+
+
+runBenchmarks()
