@@ -107,3 +107,5 @@ for idx, item in listjen.pairs:
 #[
     --- https://nim-lang.org/docs/tut1.html#procedures-parameters
 ]#
+
+# https://nim-lang.org/docs/tut1.html#advanced-types-objects
