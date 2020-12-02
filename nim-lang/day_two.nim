@@ -24,7 +24,7 @@ bench(firstAssignment):
         isBetween(between, pwd.count(substr))
 
 
-    proc extractValidPasswords(): int =
+    proc extractValidPasswords(): int{.discardable.} =
         for line in flines:
             let splitted = line.split(separator)
             let policy = splitted[0].split(policy_separator)
@@ -33,7 +33,7 @@ bench(firstAssignment):
                 result += 1
 
 
-    let _ = extractValidPasswords()
+    discard extractValidPasswords()
 
 
 
@@ -47,7 +47,7 @@ bench(secondAssignment):
                 subchar, parsed[1], pwd)
 
 
-    proc extractValidPasswords(): int =
+    proc extractValidPasswords(): int{.discardable.} =
         for line in flines:
             let splitted = line.split(separator)
             let policy = splitted[0].split(policy_separator)
@@ -56,7 +56,7 @@ bench(secondAssignment):
                 result += 1
 
 
-    let _ = extractValidPasswords()
+    discard extractValidPasswords()
 
 
 runBenchmarks()

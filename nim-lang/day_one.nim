@@ -1,4 +1,5 @@
-import times
+import nimbench
+
 
 const year = 2020
 const numbers = [1211, 1698, 1787, 1947, 1888, 444, 1819, 1890, 1940, 1884,
@@ -21,24 +22,7 @@ const numbers = [1211, 1698, 1787, 1947, 1888, 444, 1819, 1890, 1940, 1884,
 
 
 
-proc calcDuration(name: string, procedure: proc) =
-    echo "Running: ", name
-
-    let time = cpuTime()
-    let result = procedure()
-    let seconds = cpuTime() - time
-
-    echo "Result: ", result
-
-    echo "Total duration in seconds: ", seconds
-    echo "Total duration in milliseconds: ", seconds * 1000
-    echo "Total duration in nanoseconds: ", seconds * 1_000_000_000
-
-
-#[
-    First assignment
-]#
-block firstAssFineMent:
+bench(firstAssFinement):
     proc isAddedYear(x: int, y: int): bool =
         x + y == year
 
@@ -51,12 +35,10 @@ block firstAssFineMent:
                 if isAddedYear(numb, n):
                     return numb * n
 
-    calcDuration("First Ass", looperBoi)
+    discard looperBoi()
 
-#[
-    Second assignment
-]#
-block secondAssFinement:
+
+bench(secondAssFinement):
     proc isAddedYear(x: int, y: int, z: int): bool =
         x + y + z == year
 
@@ -71,4 +53,7 @@ block secondAssFinement:
                     if isAddedYear(numb, n, numbers[i]):
                         return numb * n * numbers[i]
 
-    calcDuration("Second Ass", looperBoi)
+    discard looperBoi()
+
+
+runBenchmarks()
