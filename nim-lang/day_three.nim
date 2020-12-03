@@ -60,8 +60,6 @@ bench(secondAssFinement):
         var pos = (0, 0)
         var tree_count: int
 
-        var results: seq[int] = @[]
-
         for travel in traversals:
             pos = (0, 0)
             tree_count = 0
@@ -72,9 +70,7 @@ bench(secondAssFinement):
 
                 pos = traverseOnce(pos, travel, high(flines[pos[1]]))
 
-            results.add(tree_count)
-
-        return results.foldl(a*b)
+            result *= tree_count
 
     discard calculateTrees()
 
