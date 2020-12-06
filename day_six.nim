@@ -1,29 +1,40 @@
 import sets
+import nimbench
 import strutils
 
 
-const fname = "day_five_input.txt"
+const fname = "day_six_input.txt"
 
 
 let input = fname.readFile().split("\n\n")
 
 
+proc getUniqueChars(text: string): HashSet[char] =
+    return toHashSet(toLowerAscii(multiReplace(text, (" ", ""), ("\n", ""))))
+
 proc countUniqueChars(answers: string): int =
-    let test = """HAllo mijn naam is dingsken
-    ahja"""
-
-    echo toHashSet(test)
-
-    return 2
+    return getUniqueChars(answers).len
 
 
+bench(firstAssFinement):
+    proc getAnswersCount(): int {.discardable.} =
+        for group in input:
+            result += countUniqueChars(group)
 
-proc getAnswersCount(): int {.discardable.} =
-    for group in input:
-        countUniqueChars("pfrt")
-
-    return 2
+    discard getAnswersCount()
 
 
-discard getAnswersCount()
+proc countAnswersForGroup(group: string): int =
+    for c in getUniqueChars(group):
+        if group.count(c) == group.strip().split("\n").len:
+            inc(result)
 
+bench(secondAssFinement):
+    proc getAnswersCount(): int {.discardable.} =
+        for group in input:
+            result += countAnswersForGroup(group)
+
+    discard getAnswersCount()
+
+
+runBenchmarks()
