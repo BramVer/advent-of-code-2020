@@ -1,3 +1,4 @@
+import nimbench
 import algorithm
 
 const fname = "day_five_input.txt"
@@ -52,24 +53,30 @@ proc getSeatID(boardingPass: string): int =
     return pos[0] * 8 + pos[1]
 
 
-proc getHighestSeatID(): int{.discardable.} =
-    for bpass in flines:
-        var seat = getSeatID(bpass)
-        if seat > result:
-            result = seat
+bench(firstAssFinement):
+    proc getHighestSeatID(): int{.discardable.} =
+        for bpass in flines:
+            var seat = getSeatID(bpass)
+            if seat > result:
+                result = seat
 
+    discard getHighestSeatId()
 
 proc getSeatsMap(): seq[int] =
     for bpass in flines:
         result.add(getSeatId(bpass))
 
 
-proc getMySeat(): int{.discardable.} =
-    var seats = getSeatsMap()
-    sort(seats, system.cmp)
+bench(secondAssFinement):
+    proc getMySeat(): int{.discardable.} =
+        var seats = getSeatsMap()
+        sort(seats, system.cmp)
 
-    for idx, seat in seats[1..^2].pairs:
-        if seats[idx+2] - seat == 2:
-            return seat + 1
+        for idx, seat in seats[1..^2].pairs:
+            if seats[idx+2] - seat == 2:
+                return seat + 1
 
-echo getMySeat()
+    discard getMySeat()
+
+
+runBenchmarks()
